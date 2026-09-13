@@ -70,12 +70,24 @@
     /* Satisfying subtle animations */
     .sparkles{position:absolute;inset:0;pointer-events:none;opacity:0.06}
 
-    /* BLOW-UP animation styles */
-    .blow-up{display:inline-block;transform:scale(1);transition:transform .8s cubic-bezier(.22,.9,.3,1),letter-spacing .6s,color .6s;text-decoration:none}
-    .blow-up.visible{transform:scale(1.18);letter-spacing:2px;color:var(--accent);text-shadow:0 12px 30px rgba(77,163,255,0.12)}
+    /* SHOW-UP animation styles (fade/translate only) */
+    .blow-up{
+      display:inline-block;
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .6s ease-out, transform .6s cubic-bezier(.22,.9,.3,1);
+    }
+    .blow-up.visible{
+      opacity:1;
+      transform:translateY(0);
+      color:var(--accent);
+      text-shadow:0 8px 20px rgba(77,163,255,0.08);
+    }
 
     /* Accessibility and reduced motion */
-    @media (prefers-reduced-motion:reduce){.blow-up{transition:none!important}}
+    @media (prefers-reduced-motion:reduce){
+      .blow-up{transition:none!important;opacity:1;transform:none!important}
+    }
 
     /* Responsive tweaks */
     @media (max-width:900px){
@@ -226,7 +238,7 @@
     const obs = new IntersectionObserver((entries)=>{ entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('visible'); obs.unobserve(en.target); } }); },{threshold:0.06});
     document.querySelectorAll('section').forEach(s=>obs.observe(s));
 
-    // BLOW-UP observer for text elements: add .visible to elements with .blow-up when they enter view
+    // SHOW-UP observer for text elements: add .visible to elements with .blow-up when they enter view
     const blowElems = document.querySelectorAll('.blow-up');
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (blowElems.length) {
