@@ -1,328 +1,212 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DL Projekts</title>
   <meta name="description" content="DL Projekts — independent game development. Create. Build. Play.">
-
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* New site-wide design: fresh, minimal, game-studio aesthetic */
     :root{
-      --bg:#050914; --accent:#4da3ff; --muted:#9eacc0; --card:#0b1220; --glass: rgba(255,255,255,0.03);
-      --max-width:1200px;
-
-      /* Button system */
-      --btn-radius:12px;
-      --btn-padding-y:12px;
-      --btn-padding-x:18px;
-      --btn-font-weight:700;
-      --btn-shadow: 0 10px 30px rgba(77,163,255,0.08);
-      --btn-ease: cubic-bezier(.2,.9,.3,1);
+      --bg:#071027; --panel:#0d1724; --muted:#98a7bf; --accent:#4da3ff; --glass: rgba(255,255,255,0.04);
+      --max:1200px; --radius:14px; --gap:18px;
+      --btn-h:44px; --btn-radius:12px;
     }
-    html,body{height:100%}
-    body{
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: radial-gradient(circle at 10% 10%, rgba(77,163,255,0.03), transparent 10%),
-                  radial-gradient(circle at 90% 90%, rgba(77,163,255,0.02), transparent 10%),
-                  var(--bg);
-      color:#eaf0ff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-      display:flex;flex-direction:column;align-items:center;
-    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg) 0%, #030614 100%);color:#e7f1ff}
+    a{color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:28px}
 
-    .container{width:100%;max-width:var(--max-width);}
+    /* Header */
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{font-weight:800;font-size:20px;letter-spacing:0.6px}
+    nav{display:flex;gap:12px}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;font-weight:600}
+    nav a:hover{color:var(--accent);background:rgba(77,163,255,0.04)}
 
-    header{width:100%;padding:18px 4%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #112034;position:sticky;top:0;background:rgba(5,9,20,0.78);backdrop-filter:blur(6px);z-index:120}
-    .logo{font-size:20px;font-weight:700;color:#fff;letter-spacing:0.6px}
-    nav{display:flex;gap:14px;align-items:center}
-    nav a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;transition:all .18s}
-    nav a:hover{color:var(--accent);background:rgba(77,163,255,0.03)}
-
-    .hero{width:100%;padding:56px 4% 48px;background:radial-gradient(circle at center, #10284a 0%, #050914 55%);display:flex;align-items:center;justify-content:center}
-    .hero-inner{width:100%;max-width:1000px;display:flex;gap:28px;align-items:center}
-    .hero-copy{flex:1}
-    .hero h1{font-size:42px;line-height:1.05;margin-bottom:10px}
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;padding:36px;margin-top:18px;background:linear-gradient(180deg, rgba(77,163,255,0.02), transparent);border-radius:var(--radius);border:1px solid rgba(255,255,255,0.03)}
+    .hero h1{font-size:44px;margin:0 0 12px}
     .hero h1 span{color:var(--accent)}
-    .hero p{color:#b8c8dd;font-size:16px;max-width:720px;margin-bottom:16px}
+    .hero p{color:var(--muted);margin:0 0 18px;line-height:1.5}
+    .hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:var(--btn-h);padding:0 16px;border-radius:var(--btn-radius);font-weight:700;background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 80%, black 20%));color:#001;text-decoration:none;border:0;cursor:pointer}
+    .btn.secondary{background:transparent;color:var(--accent);border:1px solid rgba(255,255,255,0.06)}
+    .btn.ghost{background:transparent;color:var(--muted);border:1px dashed rgba(255,255,255,0.04)}
+    .btn:active{transform:translateY(1px) scale(.997)}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.03)}
+    .hero-card strong{display:block;margin-bottom:8px}
+    .hero-card .muted{color:var(--muted);font-size:13px}
 
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    /* Sections */
+    section{margin-top:28px;padding:22px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    section h2{margin:0 0 8px;font-size:22px}
+    section p.lead{color:var(--muted);margin:0 0 16px}
 
-    /* BUTTON CORE (applies to all buttons across the site) */
-    .button, .small, .social, .fab {
-      --bgColor: var(--accent);
-      --fgColor: #001;
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      padding:var(--btn-padding-y) var(--btn-padding-x);
-      border-radius:var(--btn-radius);
-      font-weight:var(--btn-font-weight);
-      text-decoration:none;color:var(--fgColor);cursor:pointer;
-      transition:transform .16s var(--btn-ease), box-shadow .16s var(--btn-ease), opacity .12s ease;
-      position:relative;overflow:hidden;outline:none;border:0;background:linear-gradient(180deg,var(--bgColor), color-mix(in srgb, var(--bgColor) 85%, black 15%));
-      box-shadow: var(--btn-shadow);
-      user-select:none; -webkit-tap-highlight-color: transparent;
-      min-height:40px; padding-left:14px; padding-right:14px;
+    /* Cards */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .card{background:var(--panel);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);transition:transform .28s ease,box-shadow .28s ease}
+    .card:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(77,163,255,0.06);border-color:var(--accent)}
+    .card h3{margin:0 0 8px}
+    .card p{color:var(--muted);margin:0 0 12px}
+    .meta{font-size:13px;color:var(--muted);margin-bottom:12px}
+    .card-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+    /* Community / Discord section kept as #discord to preserve links */
+    .community{display:flex;gap:16px;align-items:center}
+    .community .invite{padding:12px;border-radius:10px;background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 80%, black 20%));color:#001;font-weight:700;text-decoration:none}
+
+    /* Footer */
+    footer{margin-top:28px;padding:18px;text-align:center;color:var(--muted);font-size:14px}
+
+    /* Small improvements */
+    .fab{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#001;font-weight:800;box-shadow:0 18px 44px rgba(77,163,255,0.12);cursor:pointer}
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;}
+      .hero-card{order:3}
     }
-
-    /* Variants */
-    .button.secondary, .small.secondary { background: transparent; color: var(--accent); border:1px solid rgba(255,255,255,0.06); box-shadow:none; }
-    .button.ghost { background: transparent; color: var(--muted); border: 1px dashed rgba(255,255,255,0.04); box-shadow:none; }
-    .small.primary{ background: var(--accent); color:#001; padding:8px 12px; border-radius:10px; }
-
-    /* Micro interactions */
-    .button:hover, .small:hover, .social:hover, .fab:hover { transform: translateY(-4px) scale(1.01); filter:brightness(1.03); }
-    .button:active, .small:active, .social:active, .fab:active { transform: translateY(-1px) scale(0.995); }
-    .button[aria-disabled="true"]{opacity:0.6;pointer-events:none}
-
-    /* Focus visible - accessible keyboard outline */
-    .button:focus-visible, .small:focus-visible, .social:focus-visible, .fab:focus-visible {
-      box-shadow: 0 6px 24px rgba(77,163,255,0.12), 0 0 0 4px rgba(77,163,255,0.12);
-    }
-
-    /* Nice inner gloss */
-    .button::before {
-      content: '';
-      position: absolute; left: -40%; top: -40%; width: 180%; height: 180%;
-      background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.06), transparent 18%);
-      transform: scale(0.95); opacity: 0; transition: opacity .4s ease, transform .6s var(--btn-ease);
-      pointer-events: none;
-    }
-    .button:hover::before { opacity: 1; transform: scale(1); }
-
-    /* Loading indicator for buttons */
-    .button[data-loading="true"]::after, .small[data-loading="true"]::after {
-      content: '';
-      position: absolute; right: 12px; width: 14px; height: 14px; border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.25); border-top-color: white; animation:spin .8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Social tiny buttons */
-    .social{padding:8px 10px;border-radius:10px;background:transparent;color:var(--muted);border:1px solid transparent}
-    .social:hover{color:var(--accent);border-color:rgba(77,163,255,0.06);background:rgba(77,163,255,0.02)}
-
-    /* FAB specific */
-    .fab{width:56px;height:56px;border-radius:12px;background:var(--accent);color:#001;font-weight:800;box-shadow:0 20px 50px rgba(77,163,255,0.14);display:flex;align-items:center;justify-content:center}
-
-    /* show-up/scroll animations (kept from previous) */
-    .show-up{opacity:0;transform:translateY(12px);transition:opacity .48s ease-out, transform .48s cubic-bezier(.22,.9,.3,1)}
-    .show-up.visible{opacity:1;transform:translateY(0);}    
-
-    /* Accessibility and reduced motion */
-    @media (prefers-reduced-motion:reduce){
-      .show-up{transition:none!important;opacity:1;transform:none!important}
-      .button, .small, .social, .fab{transition:none!important}
-    }
-
-    /* Responsive tweaks */
-    @media (max-width:900px){
-      .hero-inner{flex-direction:column;align-items:flex-start}
-      .hero h1{font-size:30px}
-      #about .about-grid{grid-template-columns:1fr}
-      .button, .small { min-height:48px; padding-left:18px; padding-right:18px; }
-    }
-
-    @media (min-width:1200px){:root{--max-width:1400px}}
-
   </style>
 </head>
-
 <body>
-  <header class="container">
-    <div style="display:flex;align-items:center;gap:16px">
-      <div class="logo">DL Projekts</div>
-      <nav aria-label="Main navigation">
-        <a href="#games">Games</a>
-        <a href="#about">About</a>
-        <a href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Discord</a>
-      </nav>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px">
-      <a class="social" href="https://x.com/DL_Projekts" target="_blank" rel="noopener noreferrer" aria-label="DL Projekts on X">X</a>
-      <a class="social" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer" aria-label="Join our Discord">💬</a>
-    </div>
-  </header>
-
-  <div class="hero">
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <h1 class="show-up">Welcome to <span>DL Projekts</span></h1>
-        <p class="show-up">We create games, projects and experiences — combining creativity, quality and a passion for gaming. Play when available or join the community to follow progress.</p>
-
-        <div class="cta-row">
-          <a class="button" href="#games" role="button">Explore Projects</a>
-          <a class="button secondary" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Join Community</a>
-          <a class="button ghost" href="#about">About Us</a>
-        </div>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">DL Projekts</div>
+        <nav aria-label="Primary">
+          <a href="#games">Games</a>
+          <a href="#about">About</a>
+          <a href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Discord</a>
+        </nav>
       </div>
-      <div style="width:320px;position:relative;">
-        <!-- decorative card to make the hero more satisfying -->
-        <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(2,6,12,0.6);">
-          <strong style="display:block;margin-bottom:8px">Now developing</strong>
-          <div style="font-size:18px;font-weight:700">Mine Simulator</div>
-          <div class="meta show-up" style="color:var(--muted);font-size:13px;margin-top:8px">A mine-themed simulator — demo not yet available.</div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <a class="btn ghost" href="https://x.com/DL_Projekts" target="_blank" rel="noopener noreferrer">X</a>
+        <a class="btn ghost" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">💬</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <h1 id="hero-title">Welcome to <span>DL Projekts</span></h1>
+          <p class="lead">We create games, projects and experiences — combining creativity, quality and a passion for gaming. Play when available or join the community to follow progress.</p>
+          <div class="ctas">
+            <a class="btn" href="#games">Explore Projects</a>
+            <a class="btn secondary" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Join Community</a>
+            <a class="btn ghost" href="#about">About Us</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Current project">
+          <strong>Now developing</strong>
+          <div style="font-weight:700">Mine Simulator</div>
+          <div class="muted" style="margin-top:8px">A mine-themed simulator — demo not yet available.</div>
           <div style="margin-top:12px;display:flex;gap:8px">
-            <a class="button" href="mailto:sdplay@ledokol.de">Notify me</a>
-            <a class="button secondary" href="#" aria-disabled="true">Demo — coming soon</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="sparkles" aria-hidden="true"></div>
-  </div>
-
-  <main class="container">
-    <section id="games" aria-labelledby="games-heading">
-      <h2 id="games-heading" class="show-up">Our Projects</h2>
-      <p class="show-up" style="color:var(--muted)">What we're working on and what's next.</p>
-
-      <div class="cards">
-        <article class="card" aria-labelledby="mine-title">
-          <h3 id="mine-title" class="show-up">🎮 Mine Simulator</h3>
-          <div class="meta show-up">Status: In development — demo not playable yet</div>
-          <p class="show-up">Mine Simulator is our current focus: dig, manage resources and build your base. We're polishing core systems and performance before a public demo.</p>
-          <div class="card-actions">
-            <a class="small secondary" href="mailto:sdplay@ledokol.de">Get notified</a>
-            <a class="small secondary" href="#about">Read about the team</a>
-          </div>
-        </article>
-
-        <article class="card" aria-labelledby="shooter-title">
-          <h3 id="shooter-title" class="show-up">🔫 Next: Shooter Game</h3>
-          <div class="meta show-up">Planned: prototype phase</div>
-          <p class="show-up">After Mine Simulator, we're starting a shooter — fast-paced, polished controls and satisfying combat. Follow us to get early playable builds.</p>
-          <div class="card-actions">
-            <a class="small secondary" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Join Beta</a>
-            <a class="small secondary" href="#contact">Subscribe</a>
-          </div>
-        </article>
-
-        <article class="card" aria-labelledby="more-title">
-          <h3 id="more-title" class="show-up">🚀 More Projects</h3>
-          <div class="meta show-up">Ideas & prototypes</div>
-          <p class="show-up">We iterate on many ideas — some become full games, some become prototypes. Check back for updates and devlogs.</p>
-          <div class="card-actions">
-            <a class="small secondary" href="#discord">Discuss on Discord</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="about" aria-labelledby="about-heading">
-      <h2 id="about-heading" class="show-up">About DL Projekts</h2>
-      <div class="about-grid">
-        <div class="about-text">
-          <p class="show-up">DL Projekts is an independent game development group focused on creating unique, fun, and high-quality gaming experiences.</p>
-          <p class="show-up">We turn ideas into playable projects — combining creativity, development, and a passion for gaming. From small concepts to ambitious games, we're always working on something new.</p>
-          <p class="show-up">Our goal is simple: create games people enjoy, remember, and want to play again.</p>
-          <p class="show-up" style="margin-top:8px;font-weight:700;color:var(--accent)">DL Projekts — Create. Build. Play.</p>
-        </div>
-
-        <aside class="about-side" aria-label="Get involved">
-          <p style="margin-bottom:12px;font-weight:700;color:#bfdcff">Get involved</p>
-          <div style="display:flex;flex-direction:column;gap:10px">
-            <a class="button" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Join our Discord</a>
-            <a class="button secondary" href="mailto:sdplay@ledokol.de">Contact Us</a>
-            <a class="button ghost" href="#">Support / Donate</a>
+            <a class="btn" href="mailto:sdplay@ledokol.de">Notify me</a>
+            <a class="btn secondary" href="#" aria-disabled="true">Demo — coming soon</a>
           </div>
         </aside>
-      </div>
-    </section>
+      </section>
 
-    <section id="contact" aria-labelledby="contact-heading">
-      <h2 id="contact-heading" class="show-up">Contact & Stay Updated</h2>
-      <p class="show-up" style="color:var(--muted)">Questions, feedback or want to collaborate? Reach out or join our community.</p>
-      <div class="contact-row">
-        <a class="button" href="mailto:sdplay@ledokol.de">Email Us</a>
-        <a class="button secondary" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Join Discord</a>
-        <a class="button ghost" href="#">Subscribe</a>
-      </div>
-    </section>
+      <section id="games" aria-labelledby="games-heading">
+        <h2 id="games-heading">Our Projects</h2>
+        <p class="lead">Check out what we're currently working on.</p>
 
-  </main>
+        <div class="grid">
+          <article class="card" aria-labelledby="mine-title">
+            <h3 id="mine-title">🎮 Drill & Discover</h3>
+            <p>Drill deeper, discover rare resources and compete with other players.</p>
+            <div class="card-actions">
+              <a class="btn secondary" href="#about">About the team</a>
+              <a class="btn ghost" href="#discord">Discuss on Discord</a>
+            </div>
+          </article>
+
+          <article class="card" aria-labelledby="more-title">
+            <h3 id="more-title">🚀 More Coming Soon</h3>
+            <p>We're constantly working on new games and projects. Stay tuned.</p>
+            <div class="card-actions">
+              <a class="btn secondary" href="mailto:sdplay@ledokol.de">Get notified</a>
+            </div>
+          </article>
+
+          <article class="card" aria-labelledby="future-title">
+            <h3 id="future-title">🔫 Next: Shooter</h3>
+            <p>Prototype planning for a fast, polished shooter — early ideas and feel tests.</p>
+            <div class="card-actions">
+              <a class="btn secondary" href="#contact">Subscribe</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" aria-labelledby="about-heading">
+        <h2 id="about-heading">About DL Projekts</h2>
+        <div class="grid" style="grid-template-columns:1fr 360px">
+          <div>
+            <p>DL Projekts is an independent game development group focused on creating unique, fun, and high-quality gaming experiences.</p>
+            <p>We turn ideas into playable projects — combining creativity, development, and a passion for gaming. From small concepts to ambitious games, we're always working on something new.</p>
+            <p>Our goal is simple: create games people enjoy, remember, and want to play again.</p>
+            <p style="margin-top:8px;font-weight:700;color:var(--accent)">DL Projekts — Create. Build. Play.</p>
+          </div>
+          <aside style="background:linear-gradient(180deg, rgba(77,163,255,0.02), transparent);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+            <p style="font-weight:700;margin:0 0 12px;color:#bfdcff">Get involved</p>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <a class="btn" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Join our Discord</a>
+              <a class="btn secondary" href="mailto:sdplay@ledokol.de">Contact Us</a>
+              <a class="btn ghost" href="#">Support / Donate</a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="discord" aria-labelledby="discord-heading">
+        <h2 id="discord-heading">Join the Community</h2>
+        <p class="lead">Join our Discord and stay up to date with our projects.</p>
+        <div class="community">
+          <a class="invite" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Join Discord</a>
+          <div style="color:var(--muted)">Chat with devs, get early updates and participate in betas.</div>
+        </div>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact & Stay Updated</h2>
+        <p class="lead">Questions, feedback or want to collaborate? Reach out or join our community.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn" href="mailto:sdplay@ledokol.de">Email Us</a>
+          <a class="btn secondary" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Join Discord</a>
+          <a class="btn ghost" href="#">Subscribe</a>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      © 2026 DL Projekts. All rights reserved.
+    </footer>
+  </div>
 
   <div class="fab" title="Quick join" onclick="window.open('https://discord.gg/z967wyF7r','_blank')">💬</div>
 
-  <footer class="container">
-    © 2026 DL Projekts. All rights reserved.
-  </footer>
-
   <script>
-    // Smooth scroll for hash links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    // Smooth scroll for internal anchors (preserve original link behavior)
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',function(e){
         const href = this.getAttribute('href');
-        if (!href || href === '#') return;
-        if (href.startsWith('mailto:') || href.startsWith('http')) return;
+        if(!href || href==='#') return;
         e.preventDefault();
         const target = document.querySelector(href);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
       });
     });
 
-    // Intersection observer for simple reveals
-    const obs = new IntersectionObserver((entries)=>{ entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('visible'); obs.unobserve(en.target); } }); },{threshold:0.06});
-    document.querySelectorAll('section').forEach(s=>obs.observe(s));
-
-    // SHOW-UP observer for text elements: add .visible to elements with .show-up when they enter view
-    function observeShowUp(){
-      const elems = document.querySelectorAll('.show-up');
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!elems.length) return;
-      const observer = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            const el = entry.target; const delay = parseInt(el.dataset.blowDelay||'0',10);
-            if(prefersReduced) el.classList.add('visible');
-            else if(delay>0) setTimeout(()=>el.classList.add('visible'), delay);
-            else el.classList.add('visible');
-            observer.unobserve(el);
-          }
-        });
-      },{threshold:0.12});
-      elems.forEach(e=>observer.observe(e));
-    }
-    observeShowUp();
-
-    // Improved ripple + press feedback for all interactive buttons
-    function createRipple(ev){
-      const btn = ev.currentTarget;
-      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const rect = btn.getBoundingClientRect();
-      const circle = document.createElement('span');
-      const d = Math.max(rect.width, rect.height) * 1.2;
-      const r = d/2;
-      circle.style.width = circle.style.height = d + 'px';
-      circle.style.position = 'absolute'; circle.style.borderRadius = '50%';
-      circle.style.left = (ev.clientX - rect.left - r) + 'px';
-      circle.style.top = (ev.clientY - rect.top - r) + 'px';
-      circle.style.pointerEvents = 'none';
-      circle.style.background = 'radial-gradient(circle, rgba(255,255,255,0.12), rgba(255,255,255,0.02))';
-      circle.style.transform = 'scale(0)'; circle.style.opacity = '1';
-      circle.style.transition = 'transform .55s var(--btn-ease), opacity .6s ease';
-      btn.appendChild(circle);
-      requestAnimationFrame(()=>{ circle.style.transform = 'scale(1)'; circle.style.opacity = '0'; });
-      setTimeout(()=> circle.remove(),700);
-    }
-    // keyboard press effect
-    function keyPressEffect(e){ if(e.key==='Enter' || e.key===' ') { e.currentTarget.classList.add('pressed'); setTimeout(()=>e.currentTarget.classList.remove('pressed'),120); }}
-
-    document.querySelectorAll('.button, .small, .social, .fab').forEach(b=>{
-      b.style.position = b.style.position || 'relative';
-      b.addEventListener('click', createRipple);
-      b.addEventListener('keydown', keyPressEffect);
+    // Small accessible focus handling for keyboard users
+    document.querySelectorAll('a, button').forEach(el=>{
+      el.setAttribute('tabindex', '0');
+      el.addEventListener('keydown', (ev)=>{ if(ev.key==='Enter') ev.currentTarget.click(); });
     });
-
-    // Optional: show loading state for elements with data-loading on click (demo)
-    document.querySelectorAll('[data-wants-loading]').forEach(el=>{
-      el.addEventListener('click', ()=>{
-        el.setAttribute('data-loading','true');
-        setTimeout(()=>el.removeAttribute('data-loading'),1500);
-      });
-    });
-
-    // Improve touch targets and keyboard focus
-    document.querySelectorAll('a').forEach(a=>{ a.setAttribute('tabindex','0'); a.addEventListener('keydown', (e)=>{ if(e.key==='Enter') a.click(); }); });
-
   </script>
 </body>
 </html>
