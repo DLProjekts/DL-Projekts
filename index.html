@@ -71,22 +71,12 @@
     .sparkles{position:absolute;inset:0;pointer-events:none;opacity:0.06}
 
     /* SHOW-UP animation styles (fade/translate only) */
-    .blow-up{
-      display:inline-block;
-      opacity:0;
-      transform:translateY(18px);
-      transition:opacity .6s ease-out, transform .6s cubic-bezier(.22,.9,.3,1);
-    }
-    .blow-up.visible{
-      opacity:1;
-      transform:translateY(0);
-      color:var(--accent);
-      text-shadow:0 8px 20px rgba(77,163,255,0.08);
-    }
+    .show-up{opacity:0;transform:translateY(12px);transition:opacity .48s ease-out, transform .48s cubic-bezier(.22,.9,.3,1)}
+    .show-up.visible{opacity:1;transform:translateY(0);}
 
     /* Accessibility and reduced motion */
     @media (prefers-reduced-motion:reduce){
-      .blow-up{transition:none!important;opacity:1;transform:none!important}
+      .show-up{transition:none!important;opacity:1;transform:none!important}
     }
 
     /* Responsive tweaks */
@@ -120,8 +110,8 @@
   <div class="hero">
     <div class="container hero-inner">
       <div class="hero-copy">
-        <h1 class="blow-up">Welcome to <span>DL Projekts</span></h1>
-        <p>We create games, projects and experiences — combining creativity, quality and a passion for gaming. Play when available or join the community to follow progress.</p>
+        <h1 class="show-up">Welcome to <span>DL Projekts</span></h1>
+        <p class="show-up">We create games, projects and experiences — combining creativity, quality and a passion for gaming. Play when available or join the community to follow progress.</p>
 
         <div class="cta-row">
           <a class="button" href="#games">Explore Projects</a>
@@ -134,7 +124,7 @@
         <div style="background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(2,6,12,0.6);">
           <strong style="display:block;margin-bottom:8px">Now developing</strong>
           <div style="font-size:18px;font-weight:700">Mine Simulator</div>
-          <div style="color:var(--muted);font-size:13px;margin-top:8px">A mine-themed simulator — demo not yet available.</div>
+          <div class="meta show-up" style="color:var(--muted);font-size:13px;margin-top:8px">A mine-themed simulator — demo not yet available.</div>
           <div style="margin-top:12px;display:flex;gap:8px">
             <a class="button" href="mailto:sdplay@ledokol.de">Notify me</a>
             <a class="button secondary" href="#" aria-disabled="true">Demo — coming soon</a>
@@ -147,14 +137,14 @@
 
   <main class="container">
     <section id="games" aria-labelledby="games-heading">
-      <h2 id="games-heading" class="blow-up">Our Projects</h2>
-      <p style="color:var(--muted)">What we're working on and what's next.</p>
+      <h2 id="games-heading" class="show-up">Our Projects</h2>
+      <p class="show-up" style="color:var(--muted)">What we're working on and what's next.</p>
 
       <div class="cards">
         <article class="card" aria-labelledby="mine-title">
-          <h3 id="mine-title" class="blow-up">🎮 Mine Simulator</h3>
-          <div class="meta">Status: In development — demo not playable yet</div>
-          <p>Mine Simulator is our current focus: dig, manage resources and build your base. We're polishing core systems and performance before a public demo.</p>
+          <h3 id="mine-title" class="show-up">🎮 Mine Simulator</h3>
+          <div class="meta show-up">Status: In development — demo not playable yet</div>
+          <p class="show-up">Mine Simulator is our current focus: dig, manage resources and build your base. We're polishing core systems and performance before a public demo.</p>
           <div class="card-actions">
             <a class="small secondary" href="mailto:sdplay@ledokol.de">Get notified</a>
             <a class="small secondary" href="#about">Read about the team</a>
@@ -162,9 +152,9 @@
         </article>
 
         <article class="card" aria-labelledby="shooter-title">
-          <h3 id="shooter-title" class="blow-up">🔫 Next: Shooter Game</h3>
-          <div class="meta">Planned: prototype phase</div>
-          <p>After Mine Simulator, we're starting a shooter — fast-paced, polished controls and satisfying combat. Follow us to get early playable builds.</p>
+          <h3 id="shooter-title" class="show-up">🔫 Next: Shooter Game</h3>
+          <div class="meta show-up">Planned: prototype phase</div>
+          <p class="show-up">After Mine Simulator, we're starting a shooter — fast-paced, polished controls and satisfying combat. Follow us to get early playable builds.</p>
           <div class="card-actions">
             <a class="small secondary" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Join Beta</a>
             <a class="small secondary" href="#contact">Subscribe</a>
@@ -172,9 +162,9 @@
         </article>
 
         <article class="card" aria-labelledby="more-title">
-          <h3 id="more-title" class="blow-up">🚀 More Projects</h3>
-          <div class="meta">Ideas & prototypes</div>
-          <p>We iterate on many ideas — some become full games, some become prototypes. Check back for updates and devlogs.</p>
+          <h3 id="more-title" class="show-up">🚀 More Projects</h3>
+          <div class="meta show-up">Ideas & prototypes</div>
+          <p class="show-up">We iterate on many ideas — some become full games, some become prototypes. Check back for updates and devlogs.</p>
           <div class="card-actions">
             <a class="small secondary" href="#discord">Discuss on Discord</a>
           </div>
@@ -183,13 +173,13 @@
     </section>
 
     <section id="about" aria-labelledby="about-heading">
-      <h2 id="about-heading" class="blow-up">About DL Projekts</h2>
+      <h2 id="about-heading" class="show-up">About DL Projekts</h2>
       <div class="about-grid">
         <div class="about-text">
-          <p>DL Projekts is an independent game development group focused on creating unique, fun, and high-quality gaming experiences.</p>
-          <p>We turn ideas into playable projects — combining creativity, development, and a passion for gaming. From small concepts to ambitious games, we're always working on something new.</p>
-          <p>Our goal is simple: create games people enjoy, remember, and want to play again.</p>
-          <p style="margin-top:8px;font-weight:700;color:var(--accent)">DL Projekts — Create. Build. Play.</p>
+          <p class="show-up">DL Projekts is an independent game development group focused on creating unique, fun, and high-quality gaming experiences.</p>
+          <p class="show-up">We turn ideas into playable projects — combining creativity, development, and a passion for gaming. From small concepts to ambitious games, we're always working on something new.</p>
+          <p class="show-up">Our goal is simple: create games people enjoy, remember, and want to play again.</p>
+          <p class="show-up" style="margin-top:8px;font-weight:700;color:var(--accent)">DL Projekts — Create. Build. Play.</p>
         </div>
 
         <aside class="about-side" aria-label="Get involved">
@@ -204,8 +194,8 @@
     </section>
 
     <section id="contact" aria-labelledby="contact-heading">
-      <h2 id="contact-heading" class="blow-up">Contact & Stay Updated</h2>
-      <p style="color:var(--muted)">Questions, feedback or want to collaborate? Reach out or join our community.</p>
+      <h2 id="contact-heading" class="show-up">Contact & Stay Updated</h2>
+      <p class="show-up" style="color:var(--muted)">Questions, feedback or want to collaborate? Reach out or join our community.</p>
       <div class="contact-row">
         <a class="button" href="mailto:sdplay@ledokol.de">Email Us</a>
         <a class="button secondary" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Join Discord</a>
@@ -238,8 +228,8 @@
     const obs = new IntersectionObserver((entries)=>{ entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('visible'); obs.unobserve(en.target); } }); },{threshold:0.06});
     document.querySelectorAll('section').forEach(s=>obs.observe(s));
 
-    // SHOW-UP observer for text elements: add .visible to elements with .blow-up when they enter view
-    const blowElems = document.querySelectorAll('.blow-up');
+    // SHOW-UP observer for text elements: add .visible to elements with .show-up when they enter view
+    const blowElems = document.querySelectorAll('.show-up');
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (blowElems.length) {
       const blowObserver = new IntersectionObserver((entries) => {
