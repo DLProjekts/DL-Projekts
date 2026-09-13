@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DL Projekts</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #050914;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 25px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #172238;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    nav a {
+      color: #aebbd0;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 110px 20px;
+      background: radial-gradient(circle at center, #10284a 0%, #050914 55%);
+    }
+
+    .hero h1 {
+      font-size: 60px;
+      margin-bottom: 15px;
+    }
+
+    .hero span {
+      color: #4da3ff;
+    }
+
+    .hero p {
+      color: #aebbd0;
+      font-size: 18px;
+      max-width: 600px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 14px 28px;
+      background: #1677ff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .button:hover {
+      background: #0d62d6;
+    }
+
+    section {
+      padding: 70px 8%;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 35px;
+      margin-bottom: 15px;
+    }
+
+    section p {
+      color: #9eacc0;
+      margin-bottom: 30px;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #0b1220;
+      border: 1px solid #172238;
+      border-radius: 12px;
+      padding: 30px;
+      width: 280px;
+      text-align: left;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid #172238;
+      color: #65738a;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">DL Projekts</div>
+
+    <nav>
+      <a href="#games">Games</a>
+      <a href="#about">About</a>
+      <a href="#discord">Discord</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>Welcome to <span>DL Projekts</span></h1>
+    <p>
+      We create games, projects and experiences.
+      Built with creativity, quality and a passion for gaming.
+    </p>
+
+    <a class="button" href="#games">Explore Projects</a>
+  </div>
+
+  <section id="games">
+    <h2>Our Projects</h2>
+    <p>Check out what we're currently working on.</p>
+
+    <div class="cards">
+
+      <div class="card">
+        <h3>🎮 Drill & Discover</h3>
+        <p>
+          Drill deeper, discover rare resources and compete
+          with other players.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>🚀 More Coming Soon</h3>
+        <p>
+          We're constantly working on new games and projects.
+          Stay tuned.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>About DL Projekts</h2>
+    <p>
+      DL Projekts is an independent gaming project focused on
+      creating unique and fun experiences.
+    </p>
+  </section>
+
+  <section id="discord">
+    <h2>Join the Community</h2>
+    <p>Join our Discord and stay up to date with our projects.</p>
+
+    <a class="button" href="https://discord.gg/yGDW7uwfW">
+      Join Discord
+    </a>
+  </section>
+
+  <footer>
+    © 2026 DL Projekts. All rights reserved.
+  </footer>
+
+</body>
+</html>
