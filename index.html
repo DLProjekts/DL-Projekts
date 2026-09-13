@@ -11,6 +11,14 @@
     :root{
       --bg:#050914; --accent:#4da3ff; --muted:#9eacc0; --card:#0b1220; --glass: rgba(255,255,255,0.03);
       --max-width:1200px;
+
+      /* Button system */
+      --btn-radius:12px;
+      --btn-padding-y:12px;
+      --btn-padding-x:18px;
+      --btn-font-weight:700;
+      --btn-shadow: 0 10px 30px rgba(77,163,255,0.08);
+      --btn-ease: cubic-bezier(.2,.9,.3,1);
     }
     html,body{height:100%}
     body{
@@ -38,45 +46,71 @@
     .hero p{color:#b8c8dd;font-size:16px;max-width:720px;margin-bottom:16px}
 
     .cta-row{display:flex;gap:12px;flex-wrap:wrap}
-    .button{display:inline-flex;align-items:center;gap:10px;justify-content:center;padding:12px 18px;border-radius:10px;background:var(--accent);color:white;text-decoration:none;font-weight:600;transition:transform .12s ease,box-shadow .12s ease}
-    .button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent)}
-    .button.ghost{background:transparent;border:1px dashed rgba(255,255,255,0.04);color:var(--muted)}
+
+    /* BUTTON CORE (applies to all buttons across the site) */
+    .button, .small, .social, .fab {
+      --bgColor: var(--accent);
+      --fgColor: #001;
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:var(--btn-padding-y) var(--btn-padding-x);
+      border-radius:var(--btn-radius);
+      font-weight:var(--btn-font-weight);
+      text-decoration:none;color:var(--fgColor);cursor:pointer;
+      transition:transform .16s var(--btn-ease), box-shadow .16s var(--btn-ease), opacity .12s ease;
+      position:relative;overflow:hidden;outline:none;border:0;background:linear-gradient(180deg,var(--bgColor), color-mix(in srgb, var(--bgColor) 85%, black 15%));
+      box-shadow: var(--btn-shadow);
+      user-select:none; -webkit-tap-highlight-color: transparent;
+      min-height:40px; padding-left:14px; padding-right:14px;
+    }
+
+    /* Variants */
+    .button.secondary, .small.secondary { background: transparent; color: var(--accent); border:1px solid rgba(255,255,255,0.06); box-shadow:none; }
+    .button.ghost { background: transparent; color: var(--muted); border: 1px dashed rgba(255,255,255,0.04); box-shadow:none; }
+    .small.primary{ background: var(--accent); color:#001; padding:8px 12px; border-radius:10px; }
+
+    /* Micro interactions */
+    .button:hover, .small:hover, .social:hover, .fab:hover { transform: translateY(-4px) scale(1.01); filter:brightness(1.03); }
+    .button:active, .small:active, .social:active, .fab:active { transform: translateY(-1px) scale(0.995); }
     .button[aria-disabled="true"]{opacity:0.6;pointer-events:none}
 
-    main{width:100%;padding:40px 4px}
-    section{margin:18px 0;padding:26px 4%;border-radius:14px}
+    /* Focus visible - accessible keyboard outline */
+    .button:focus-visible, .small:focus-visible, .social:focus-visible, .fab:focus-visible {
+      box-shadow: 0 6px 24px rgba(77,163,255,0.12), 0 0 0 4px rgba(77,163,255,0.12);
+    }
 
-    #games .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;align-items:start}
-    .card{background:var(--card);border:1px solid #122033;border-radius:12px;padding:18px;transition:transform .28s cubic-bezier(.2,.9,.3,1),box-shadow .28s;box-shadow:0 6px 20px rgba(2,6,12,0.6)}
-    .card:hover{transform:translateY(-10px);box-shadow:0 28px 60px rgba(77,163,255,0.06);border-color:var(--accent)}
-    .card h3{margin-bottom:8px;font-size:18px}
-    .card p{color:#b9c9dd;font-size:14px;margin-bottom:12px}
-    .card .meta{font-size:13px;color:var(--muted);margin-bottom:12px}
-    .card .card-actions{display:flex;gap:10px;flex-wrap:wrap}
-    .small{padding:8px 12px;border-radius:8px;font-weight:600;font-size:14px}
-    .small.primary{background:var(--accent);color:#001}
-    .small.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent)}
+    /* Nice inner gloss */
+    .button::before {
+      content: '';
+      position: absolute; left: -40%; top: -40%; width: 180%; height: 180%;
+      background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.06), transparent 18%);
+      transform: scale(0.95); opacity: 0; transition: opacity .4s ease, transform .6s var(--btn-ease);
+      pointer-events: none;
+    }
+    .button:hover::before { opacity: 1; transform: scale(1); }
 
-    #about .about-grid{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
-    .about-text{color:#dfe9fb;line-height:1.6}
-    .about-side{background:linear-gradient(180deg, rgba(77,163,255,0.03), transparent);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    /* Loading indicator for buttons */
+    .button[data-loading="true"]::after, .small[data-loading="true"]::after {
+      content: '';
+      position: absolute; right: 12px; width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.25); border-top-color: white; animation:spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    #contact .contact-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    /* Social tiny buttons */
+    .social{padding:8px 10px;border-radius:10px;background:transparent;color:var(--muted);border:1px solid transparent}
+    .social:hover{color:var(--accent);border-color:rgba(77,163,255,0.06);background:rgba(77,163,255,0.02)}
 
-    footer{width:100%;padding:22px 4%;text-align:center;color:#73869a;border-top:1px solid #122033}
+    /* FAB specific */
+    .fab{width:56px;height:56px;border-radius:12px;background:var(--accent);color:#001;font-weight:800;box-shadow:0 20px 50px rgba(77,163,255,0.14);display:flex;align-items:center;justify-content:center}
 
-    .fab{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#001;font-weight:800;box-shadow:0 14px 30px rgba(77,163,255,0.12);cursor:pointer;z-index:200}
-
-    /* Satisfying subtle animations */
-    .sparkles{position:absolute;inset:0;pointer-events:none;opacity:0.06}
-
-    /* SHOW-UP animation styles (fade/translate only) */
+    /* show-up/scroll animations (kept from previous) */
     .show-up{opacity:0;transform:translateY(12px);transition:opacity .48s ease-out, transform .48s cubic-bezier(.22,.9,.3,1)}
-    .show-up.visible{opacity:1;transform:translateY(0);}
+    .show-up.visible{opacity:1;transform:translateY(0);}    
 
     /* Accessibility and reduced motion */
     @media (prefers-reduced-motion:reduce){
       .show-up{transition:none!important;opacity:1;transform:none!important}
+      .button, .small, .social, .fab{transition:none!important}
     }
 
     /* Responsive tweaks */
@@ -84,6 +118,7 @@
       .hero-inner{flex-direction:column;align-items:flex-start}
       .hero h1{font-size:30px}
       #about .about-grid{grid-template-columns:1fr}
+      .button, .small { min-height:48px; padding-left:18px; padding-right:18px; }
     }
 
     @media (min-width:1200px){:root{--max-width:1400px}}
@@ -114,7 +149,7 @@
         <p class="show-up">We create games, projects and experiences — combining creativity, quality and a passion for gaming. Play when available or join the community to follow progress.</p>
 
         <div class="cta-row">
-          <a class="button" href="#games">Explore Projects</a>
+          <a class="button" href="#games" role="button">Explore Projects</a>
           <a class="button secondary" href="https://discord.gg/z967wyF7r" target="_blank" rel="noopener noreferrer">Join Community</a>
           <a class="button ghost" href="#about">About Us</a>
         </div>
@@ -229,46 +264,61 @@
     document.querySelectorAll('section').forEach(s=>obs.observe(s));
 
     // SHOW-UP observer for text elements: add .visible to elements with .show-up when they enter view
-    const blowElems = document.querySelectorAll('.show-up');
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (blowElems.length) {
-      const blowObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const el = entry.target;
-            // support optional delay using data-delay (ms)
-            const delay = parseInt(el.dataset.blowDelay || '0', 10);
-            if (prefersReduced) {
-              el.classList.add('visible');
-            } else if (delay > 0) {
-              setTimeout(()=> el.classList.add('visible'), delay);
-            } else {
-              el.classList.add('visible');
-            }
-            blowObserver.unobserve(el);
+    function observeShowUp(){
+      const elems = document.querySelectorAll('.show-up');
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!elems.length) return;
+      const observer = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            const el = entry.target; const delay = parseInt(el.dataset.blowDelay||'0',10);
+            if(prefersReduced) el.classList.add('visible');
+            else if(delay>0) setTimeout(()=>el.classList.add('visible'), delay);
+            else el.classList.add('visible');
+            observer.unobserve(el);
           }
         });
-      }, { threshold: 0.12 });
-
-      blowElems.forEach(e => blowObserver.observe(e));
+      },{threshold:0.12});
+      elems.forEach(e=>observer.observe(e));
     }
+    observeShowUp();
 
-    // Add small click ripple to buttons
+    // Improved ripple + press feedback for all interactive buttons
     function createRipple(ev){
       const btn = ev.currentTarget;
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const rect = btn.getBoundingClientRect();
       const circle = document.createElement('span');
-      const d = Math.max(btn.clientWidth, btn.clientHeight);
+      const d = Math.max(rect.width, rect.height) * 1.2;
       const r = d/2;
-      circle.style.width = circle.style.height = d+'px';
-      circle.style.position='absolute';circle.style.borderRadius='50%';circle.style.background='rgba(255,255,255,0.08)';
-      circle.style.left = (ev.clientX - btn.getBoundingClientRect().left - r) + 'px';
-      circle.style.top = (ev.clientY - btn.getBoundingClientRect().top - r) + 'px';
-      circle.style.transform='scale(0)';circle.style.transition='transform .45s ease, opacity .5s ease';circle.style.pointerEvents='none';
+      circle.style.width = circle.style.height = d + 'px';
+      circle.style.position = 'absolute'; circle.style.borderRadius = '50%';
+      circle.style.left = (ev.clientX - rect.left - r) + 'px';
+      circle.style.top = (ev.clientY - rect.top - r) + 'px';
+      circle.style.pointerEvents = 'none';
+      circle.style.background = 'radial-gradient(circle, rgba(255,255,255,0.12), rgba(255,255,255,0.02))';
+      circle.style.transform = 'scale(0)'; circle.style.opacity = '1';
+      circle.style.transition = 'transform .55s var(--btn-ease), opacity .6s ease';
       btn.appendChild(circle);
-      requestAnimationFrame(()=>{ circle.style.transform='scale(1)'; circle.style.opacity='0'; });
-      setTimeout(()=>circle.remove(),600);
+      requestAnimationFrame(()=>{ circle.style.transform = 'scale(1)'; circle.style.opacity = '0'; });
+      setTimeout(()=> circle.remove(),700);
     }
-    document.querySelectorAll('.button, .small').forEach(b=>{ b.style.position='relative'; b.addEventListener('click', createRipple); });
+    // keyboard press effect
+    function keyPressEffect(e){ if(e.key==='Enter' || e.key===' ') { e.currentTarget.classList.add('pressed'); setTimeout(()=>e.currentTarget.classList.remove('pressed'),120); }}
+
+    document.querySelectorAll('.button, .small, .social, .fab').forEach(b=>{
+      b.style.position = b.style.position || 'relative';
+      b.addEventListener('click', createRipple);
+      b.addEventListener('keydown', keyPressEffect);
+    });
+
+    // Optional: show loading state for elements with data-loading on click (demo)
+    document.querySelectorAll('[data-wants-loading]').forEach(el=>{
+      el.addEventListener('click', ()=>{
+        el.setAttribute('data-loading','true');
+        setTimeout(()=>el.removeAttribute('data-loading'),1500);
+      });
+    });
 
     // Improve touch targets and keyboard focus
     document.querySelectorAll('a').forEach(a=>{ a.setAttribute('tabindex','0'); a.addEventListener('keydown', (e)=>{ if(e.key==='Enter') a.click(); }); });
