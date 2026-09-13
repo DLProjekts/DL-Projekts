@@ -70,8 +70,12 @@
     /* Satisfying subtle animations */
     .sparkles{position:absolute;inset:0;pointer-events:none;opacity:0.06}
 
+    /* BLOW-UP animation styles */
+    .blow-up{display:inline-block;transform:scale(1);transition:transform .8s cubic-bezier(.22,.9,.3,1),letter-spacing .6s,color .6s;text-decoration:none}
+    .blow-up.visible{transform:scale(1.18);letter-spacing:2px;color:var(--accent);text-shadow:0 12px 30px rgba(77,163,255,0.12)}
+
     /* Accessibility and reduced motion */
-    @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+    @media (prefers-reduced-motion:reduce){.blow-up{transition:none!important}}
 
     /* Responsive tweaks */
     @media (max-width:900px){
@@ -104,7 +108,7 @@
   <div class="hero">
     <div class="container hero-inner">
       <div class="hero-copy">
-        <h1>Welcome to <span>DL Projekts</span></h1>
+        <h1 class="blow-up">Welcome to <span>DL Projekts</span></h1>
         <p>We create games, projects and experiences — combining creativity, quality and a passion for gaming. Play when available or join the community to follow progress.</p>
 
         <div class="cta-row">
@@ -131,12 +135,12 @@
 
   <main class="container">
     <section id="games" aria-labelledby="games-heading">
-      <h2 id="games-heading">Our Projects</h2>
+      <h2 id="games-heading" class="blow-up">Our Projects</h2>
       <p style="color:var(--muted)">What we're working on and what's next.</p>
 
       <div class="cards">
         <article class="card" aria-labelledby="mine-title">
-          <h3 id="mine-title">🎮 Mine Simulator</h3>
+          <h3 id="mine-title" class="blow-up">🎮 Mine Simulator</h3>
           <div class="meta">Status: In development — demo not playable yet</div>
           <p>Mine Simulator is our current focus: dig, manage resources and build your base. We're polishing core systems and performance before a public demo.</p>
           <div class="card-actions">
@@ -146,7 +150,7 @@
         </article>
 
         <article class="card" aria-labelledby="shooter-title">
-          <h3 id="shooter-title">🔫 Next: Shooter Game</h3>
+          <h3 id="shooter-title" class="blow-up">🔫 Next: Shooter Game</h3>
           <div class="meta">Planned: prototype phase</div>
           <p>After Mine Simulator, we're starting a shooter — fast-paced, polished controls and satisfying combat. Follow us to get early playable builds.</p>
           <div class="card-actions">
@@ -156,7 +160,7 @@
         </article>
 
         <article class="card" aria-labelledby="more-title">
-          <h3 id="more-title">🚀 More Projects</h3>
+          <h3 id="more-title" class="blow-up">🚀 More Projects</h3>
           <div class="meta">Ideas & prototypes</div>
           <p>We iterate on many ideas — some become full games, some become prototypes. Check back for updates and devlogs.</p>
           <div class="card-actions">
@@ -167,7 +171,7 @@
     </section>
 
     <section id="about" aria-labelledby="about-heading">
-      <h2 id="about-heading">About DL Projekts</h2>
+      <h2 id="about-heading" class="blow-up">About DL Projekts</h2>
       <div class="about-grid">
         <div class="about-text">
           <p>DL Projekts is an independent game development group focused on creating unique, fun, and high-quality gaming experiences.</p>
@@ -188,7 +192,7 @@
     </section>
 
     <section id="contact" aria-labelledby="contact-heading">
-      <h2 id="contact-heading">Contact & Stay Updated</h2>
+      <h2 id="contact-heading" class="blow-up">Contact & Stay Updated</h2>
       <p style="color:var(--muted)">Questions, feedback or want to collaborate? Reach out or join our community.</p>
       <div class="contact-row">
         <a class="button" href="mailto:sdplay@ledokol.de">Email Us</a>
@@ -221,6 +225,31 @@
     // Intersection observer for simple reveals
     const obs = new IntersectionObserver((entries)=>{ entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('visible'); obs.unobserve(en.target); } }); },{threshold:0.06});
     document.querySelectorAll('section').forEach(s=>obs.observe(s));
+
+    // BLOW-UP observer for text elements: add .visible to elements with .blow-up when they enter view
+    const blowElems = document.querySelectorAll('.blow-up');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (blowElems.length) {
+      const blowObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            // support optional delay using data-delay (ms)
+            const delay = parseInt(el.dataset.blowDelay || '0', 10);
+            if (prefersReduced) {
+              el.classList.add('visible');
+            } else if (delay > 0) {
+              setTimeout(()=> el.classList.add('visible'), delay);
+            } else {
+              el.classList.add('visible');
+            }
+            blowObserver.unobserve(el);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      blowElems.forEach(e => blowObserver.observe(e));
+    }
 
     // Add small click ripple to buttons
     function createRipple(ev){
